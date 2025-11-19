@@ -7,11 +7,12 @@ datasources:
     url: http://influxdb:8086
     isDefault: true
     secureJsonData:
-      httpHeaderValue1:  'Token $INFLUXDB_API_TOKEN'
+      token: $INFLUXDB_API_TOKEN
     jsonData:
-      dbName: k6
-      httpMode: GET
-      httpHeaderName1: 'Authorization'
+      version: Flux
+      organization: HG
+      defaultBucket: k6
+      tlsSkipVerify: true
   - name: Prometheus
     type: prometheus
     access: proxy
