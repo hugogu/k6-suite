@@ -4,6 +4,7 @@
 
 * 安装[Docker Desktop](https://www.docker.com/products/docker-desktop/)
 * 安装[Docker Compose](https://docs.docker.com/compose/install/)
+* 检查 `k6/Dockerfile` 并更新版本
 
 ## 使用步骤
 
@@ -26,6 +27,10 @@
     docker run --network="host" --rm -i load-test-k6-influxdb run -o xk6-influxdb \
         -e K6_INFLUXDB_ORGANIZATION='HG' \
         -e K6_INFLUXDB_BUCKET='k6' -e K6_INFLUXDB_TOKEN='secret_token' - < ./scripts/max-vu.js
+    ```
+    PowerShell:
+    ```powershell
+    Get-Content ./scripts/max-vu.js | docker run --network="host" --rm -i load-test-k6-influxdb run -o xk6-influxdb -e K6_INFLUXDB_ORGANIZATION='HG' -e K6_INFLUXDB_BUCKET='k6' -e K6_INFLUXDB_TOKEN='secret_token' -
     ```
    * 基于Prometheus，参考[Prometheus remote write](https://grafana.com/docs/k6/latest/results-output/real-time/prometheus-remote-write/)
     ```shell
