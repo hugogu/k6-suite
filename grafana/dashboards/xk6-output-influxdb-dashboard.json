@@ -69,7 +69,7 @@
       },
       "hiddenSeries": false,
       "id": 1,
-      "interval": ">1s",
+      "interval": "1s",
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -435,7 +435,7 @@
       },
       "hiddenSeries": false,
       "id": 10,
-      "interval": ">1s",
+      "interval": "1s",
       "legend": {
         "alignAsTable": true,
         "avg": true,
@@ -1261,7 +1261,7 @@
       "height": "250px",
       "hiddenSeries": false,
       "id": 5,
-      "interval": ">1s",
+      "interval": "1s",
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -1539,7 +1539,7 @@
       "height": "250px",
       "highlightCards": true,
       "id": 8,
-      "interval": ">1s",
+      "interval": "1s",
       "links": [],
       "options": {
         "calculate": true,
