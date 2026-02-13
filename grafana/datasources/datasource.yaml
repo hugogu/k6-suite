@@ -6,16 +6,12 @@ datasources:
     access: proxy
     url: http://influxdb:8086
     isDefault: true
-    basicAuth: true
-    basicAuthUser: ""
+    database: k6
+    user: root
     secureJsonData:
-      basicAuthPassword: $INFLUXDB_API_TOKEN
+      password: password1
     jsonData:
-      version: InfluxQL
-      dbName: k6
       httpMode: GET
-      organization: HG
-      tlsSkipVerify: true
   - name: Prometheus
     type: prometheus
     access: proxy

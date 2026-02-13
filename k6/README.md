@@ -1,6 +1,8 @@
 # 自定义K6镜像
 
-主要是为了解决默认K6镜像中，缺失插件的问题，比如`xk6-influxdb`，`xk6-prometheus`等。
+主要是为了解决默认K6镜像中，缺失插件的问题，比如`xk6-output-timestream`等。
+
+注意：InfluxDB v1 已被标准k6镜像支持，可直接使用 `--out influxdb` 选项。本Dockerfile仅用于需要额外插件（如Timestream）的场景。
 
 ## 代码变更
 

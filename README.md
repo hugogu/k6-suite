@@ -4,16 +4,10 @@
 
 * 安装[Docker Desktop](https://www.docker.com/products/docker-desktop/)
 * 安装[Docker Compose](https://docs.docker.com/compose/install/)
-* 检查 `k6/Dockerfile` 并更新版本
 
 ## 使用步骤
 
 1. 开启VPN
-1. 构建附加插件的镜像
-    ```shell
-    docker build --build-arg PLUGIN=grafana/xk6-output-influxdb -t load-test-k6-influxdb ./k6
-    docker build --build-arg PLUGIN=leonyork/xk6-output-timestream -t load-test-k6-timestream ./k6
-    ```
 1. 启动相关服务
     ```shell
     docker-compose up -d
@@ -22,15 +16,17 @@
     * 参考`./scripts/max-vu.js`
     * 将自己测试脚本放置在`./scripts`目录下
 1. 执行测试
-   * 基于InfluxDB
+   * 基于InfluxDB (使用标准k6镜像，支持InfluxDB v1)
     ```shell
-    docker run --network="host" --rm -i load-test-k6-influxdb run -o xk6-influxdb \
-        -e K6_INFLUXDB_ORGANIZATION='HG' \
-        -e K6_INFLUXDB_BUCKET='k6' -e K6_INFLUXDB_TOKEN='secret_token' - < ./scripts/max-vu.js
+    docker run --network="host" --rm -i grafana/k6 run --out influxdb \
+        -e K6_INFLUXDB_ADDR=http://localhost:8086 \
+        -e K6_INFLUXDB_DB=k6 \
+        -e K6_INFLUXDB_USERNAME=root \
+        -e K6_INFLUXDB_PASSWORD=password1 - < ./scripts/max-vu.js
     ```
     PowerShell:
     ```powershell
-    Get-Content ./scripts/max-vu.js | docker run --network="host" --rm -i load-test-k6-influxdb run -o xk6-influxdb -e K6_INFLUXDB_ORGANIZATION='HG' -e K6_INFLUXDB_BUCKET='k6' -e K6_INFLUXDB_TOKEN='secret_token' -
+    Get-Content ./scripts/max-vu.js | docker run --network="host" --rm -i grafana/k6 run --out influxdb -e K6_INFLUXDB_ADDR=http://localhost:8086 -e K6_INFLUXDB_DB=k6 -e K6_INFLUXDB_USERNAME=root -e K6_INFLUXDB_PASSWORD=password1 -
     ```
    * 基于Prometheus，参考[Prometheus remote write](https://grafana.com/docs/k6/latest/results-output/real-time/prometheus-remote-write/)
     ```shell

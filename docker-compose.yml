@@ -20,25 +20,19 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_BASIC_ENABLED=false
-      - INFLUXDB_API_TOKEN=secret_token
-      - INFLUXDB_ORG=HG
-      - INFLUXDB_DEFAULT_BUCKET=k6
+      - INFLUXDB_DB=k6
+      - INFLUXDB_USER=root
+      - INFLUXDB_PASSWORD=password1
     volumes:
       - ./grafana:/etc/grafana/provisioning/
   influxdb:
-    image: influxdb:2.7
+    image: influxdb:1.8
     ports:
       - "8086:8086"
     environment:
-      - INFLUXD_LOG_LEVEL=debug
-      - INFLUXD_HTTP_BIND_ADDRESS=:8086
-      - DOCKER_INFLUXDB_INIT_MODE=setup
-      - DOCKER_INFLUXDB_INIT_USERNAME=root
-      - DOCKER_INFLUXDB_INIT_PASSWORD=password1
-      - DOCKER_INFLUXDB_INIT_ORG=HG
-      - DOCKER_INFLUXDB_INIT_BUCKET=k6
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=secret_token
-      - DOCKER_INFLUXD_SESSION_LENGTH=1440
-      - INFLUXD_FEATURES=flux-v1-compat
+      - INFLUXDB_DB=k6
+      - INFLUXDB_ADMIN_USER=root
+      - INFLUXDB_ADMIN_PASSWORD=password1
+      - INFLUXDB_HTTP_AUTH_ENABLED=true
     volumes:
       - ./tmp/influxdb:/var/lib/influxdb
